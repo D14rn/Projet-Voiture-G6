@@ -1,4 +1,5 @@
 import unittest
+from src.lib import exit_handler
 
 
 class CleanupTest(unittest.TestCase):
