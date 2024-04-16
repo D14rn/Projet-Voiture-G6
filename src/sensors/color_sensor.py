@@ -1,5 +1,5 @@
 import board, adafruit_tcs34725, logging
-from sensor import Sensor
+from .sensor import Sensor
 
 
 class ColorSensor(Sensor):

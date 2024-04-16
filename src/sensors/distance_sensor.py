@@ -1,5 +1,5 @@
 import time as t, logging, RPi.GPIO as g
-from sensor import Sensor
+from .sensor import Sensor
 
 
 class DistanceSensor(Sensor):
@@ -11,7 +11,7 @@ class DistanceSensor(Sensor):
         self.__trigger_pin = trigger_pin
         self.__echo_pin = echo_pin
         self.__pulse_interval = 0.00001 # 10 µs
-        g.setmode(g.BOARD)
+        g.setmode(g.BCM)
         g.setup(self.__trigger_pin, g.OUT)
         g.setup(self.__echo_pin, g.IN)
 
