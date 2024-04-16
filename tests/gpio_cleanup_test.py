@@ -1,6 +1,4 @@
 import unittest
-from src.lib import exit_handler
-
 
 class CleanupTest(unittest.TestCase):
     def test_atexit_register(self):
