@@ -1,5 +1,5 @@
 import unittest
-from src.color_sensor import ColorSensor
+from src.sensors import ColorSensor
 import time
 
 
