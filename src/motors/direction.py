@@ -1,5 +1,5 @@
 import time as t
-from pwm_driver import PWM
+from .pwm_driver import PWM
 
 
 class Direction:
@@ -9,7 +9,7 @@ class Direction:
     def __init__(self):
         self.__pwm = PWM() 
         self.__pwm.frequency = 50 # Fréquence de 50 Hz
-        self.__wait_time = 0.5 # Temps d'attente pour que le servo ait le temps de tourner
+        self.__wait_time = 0.025 # Temps d'attente pour que le servo ait le temps de tourner
         self.__min = 360 # borne gauche
         self.__max = 550 # borne droite
     
