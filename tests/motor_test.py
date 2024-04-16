@@ -1,10 +1,10 @@
 import unittest
+import time
 from src.motors import Motor
 from src.lib import exit_handler
-import time 
+
 
 class MotorTest(unittest.TestCase):
-    
     '''
     bcm pins
     moteur gauche :
@@ -23,7 +23,7 @@ class MotorTest(unittest.TestCase):
             print('Forward movement ok')
             for i in range(1,6):
                 time.sleep(1)
-                print('next test in {i} seconds')
+                print(f'next test in {i} seconds')
         del motor
 
     def testMoveBackward(self):
@@ -33,7 +33,7 @@ class MotorTest(unittest.TestCase):
             print('Backward movement ok')
             for i in range(1,6):
                 time.sleep(1)
-                print('next test in {i} seconds')
+                print(f'next test in {i} seconds')
         del motor2
 
     def testShiftSpeed(self):
@@ -43,32 +43,27 @@ class MotorTest(unittest.TestCase):
         '''
         motor3 = Motor(17,18,27,22,4,5)
 
-        oldSpeed=motor3.move(40)
+        old_speed = motor3.move(40)
         time.sleep(5)
-        newSpeed=motor3.move(80)
+        new_speed = motor3.move(80)
         time.sleep(5)
-        if self.assertGreater(newSpeed,oldSpeed):
+        if self.assertGreater(new_speed,old_speed):
             print('acceleration ok')
-        #else: 
 
         motor3.stop()       
         time.sleep(3)
 
-        oldSpeed=self.move(80)
+        old_speed = motor3.move(80)
         time.sleep(5)
-        newSpeed=self.move(40)
+        new_speed = motor3.move(40)
         time.sleep(5)
-        if self.assertLess(newSpeed,oldSpeed):
+        if self.assertLess(new_speed,old_speed):
             print('deceleration ok')
-        #else:
-        
-        
-
 
     def stop(self):
-        self.assertEqual(self.move(0),0)
+        motor4 = Motor(17,18,27,22,4,5)
+        self.assertEqual(motor4.move(0),0)
 
-    exit_handler()
 
 if __name__ == "__main__":
      unittest.main()
