@@ -1,5 +1,5 @@
 import time as t, RPi.GPIO as g
-from PCA9685 import PWM
+from pwm_driver import PWM
 
 
 class Motor:
