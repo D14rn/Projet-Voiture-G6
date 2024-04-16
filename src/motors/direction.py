@@ -10,11 +10,11 @@ class Direction:
         self.__pwm = PWM() 
         self.__pwm.frequency = 50 # Fréquence de 50 Hz
         self.__wait_time = 0.5 # Temps d'attente pour que le servo ait le temps de tourner
-        self.__min = 350 # borne minimale
-        self.__max = 550 # borne maximale
+        self.__min = 360 # borne gauche
+        self.__max = 550 # borne droite
     
     def _calc_angle(self, angle) -> int:
-        angle = max(-45, min(45, angle))  # Ensure angle is within [-45, 45]
+        angle = max(-45, min(45, angle))  # angle entre [-45, 45]
         angle = self.__min + ((angle) / 90.0) * (self.__max - self.__min)
         print(angle)
         return int(angle)
@@ -42,18 +42,3 @@ class Direction:
         print('going home')
         self.__pwm.write(0, 0, self._calc_angle(0))
         t.sleep(self.__wait_time)
-
-if __name__ == "__main__":
-    d = Direction()
-    while 1:
-        choice = input("Enter 'l' to turn left, 'r' to turn right, 'h' to go home, 'q' to quit: ")
-        if choice == 'l':
-            d.turn_left(45)
-        elif choice == 'r':
-            d.turn_right(45)
-        elif choice == 'h':
-            d.home()
-        elif choice == 'q':
-            break
-        else:
-            print("Invalid choice")
