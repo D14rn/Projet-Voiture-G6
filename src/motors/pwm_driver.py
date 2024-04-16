@@ -14,6 +14,7 @@
 import smbus
 import time
 import math
+import commands
 
 class PWM(object):
     """A PWM control class for PCA9685."""
@@ -151,7 +152,6 @@ class PWM(object):
             self._check_i2c()
 
     def _check_i2c(self):
-        import commands
         bus_number = self._get_bus_number()
         print ("\nYour Pi Rivision is: %s" % self._get_pi_revision())
         print ("I2C bus number is: %s" % bus_number)
@@ -258,15 +258,3 @@ class PWM(object):
             print (self._DEBUG_INFO, "Set debug on")
         else:
             print (self._DEBUG_INFO, "Set debug off")
-
-if __name__ == '__main__':
-    import time
-
-
-    #pwm = PWM()
-    #pwm._check_i2c()
-    #pwm.frequency = 50
-    #for j in range(204):
-    #    pwm.write(0, 204, 204+j)
-    #    print ('PWM value: %d' % j)
-    #    time.sleep(0.1)
