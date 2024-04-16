@@ -1,46 +1,68 @@
 import unittest
-import src.motors.motor
+from src.motors import Motor
 from src.lib import exit_handler
+import time 
 
 class MotorTest(unittest.TestCase):
+    
+    '''
+    bcm pins
+    moteur gauche :
+    A : 17 (out)
+    B : 18 (out)
+    channel : 4
+    moteur droit :
+    A : 27 (out)
+    B : 22 (out)
+    channel : 5
+    '''
+    def testMoveForward(self):
+        motor = Motor(17,18,27,22,4,5)
+        spdMotor = motor.move(40)
+        if self.assertTrue(1<=spdMotor<100):
+            print('''Actual speed : {spdMotor}
+                  next test in 5 sec''')
+        time.sleep(5)
+        del motor
 
-#numerotation des pins mode board a voir pour le bcm
-    def setUp(self,
-            pin1_left_motor,
-            pin2_left_motor,
-            pin1_right_motor,
-            pin2_right_motor,
-            channel_motor1,
-            channel_motor2):
-        g.setmode(g.BOARD)
-        # left motor
-        self.__left_motor_A = pin1_left_motor
-        self.__left_motor_B = pin2_left_motor
-        self.__left_motor_driver = channel_motor1
-        g.setup(self.__left_motor_A, g.OUT)
-        g.setup(self.__left_motor_B, g.OUT)
-        # right motor
-        self.__right_motor_A = pin1_right_motor
-        self.__right_motor_B = pin2_right_motor
-        self.__right_motor_driver = channel_motor2
-        g.setup(self.__right_motor_A, g.OUT)
-        g.setup(self.__right_motor_B, g.OUT)
-        # PWM (speed control)
-        self.__pwm = PWM()
-        self.__pwm.frequency = 50
-        self.__min = 0 # min pwm (speed)
-        self.__max = 4095 # max pwm (speed)
+    def testMoveBackward(self):
+        motor2 = Motor(17,18,27,22,4,5)
+        spdMotor = motor2.move(40)
+        self.assertLessEqual(spdMotor,0)
+        time.sleep(5)
+        del motor2
+
+    def testShiftSpeed(self):
+        '''
+        pseudo-code test acceleration
+        return speed dans move , est que cest ok ?
+        '''
+        motor3 = Motor(17,18,27,22,4,5)
+
+        oldSpeed=motor3.move(40)
+        time.sleep(5)
+        newSpeed=motor3.move(80)
+        time.sleep(5)
+        if self.assertLess(newSpeed,oldSpeed):
+            print('acceleration ok')
+        #else: 
+
+        motor3.stop()       
+        time.sleep(3)
+
+        oldSpeed=self.move(80)
+        time.sleep(5)
+        newSpeed=self.move(40)
+        time.sleep(5)
+        if self.assertLess(newSpeed,oldSpeed):
+            print('deceleration ok')
+        #else:
+        
         
 
-    def testMoveForward(self):
-        self.move(400,backward=True)
-        self.asserGreater(self.move(),0)
-    def testMoveBackward(self):
-        self.move(-100,backward=True)
-        self.assertLessEqual(self.move(),0)
 
-    def testStop(self):
-        self.assertEqual(self.speed,0)
+    def stop(self):
+        self.assertEqual(self.move(0),0)
 
     exit_handler()
 
