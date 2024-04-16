@@ -19,5 +19,5 @@ def test_long_lightsensor_get_value():
 
 
 if __name__ == "__main__":
-    unittest.main()
     test_long_lightsensor_get_value()
+    unittest.main()
