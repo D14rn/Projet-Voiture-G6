@@ -13,7 +13,7 @@ class Motor:
             pin2_right_motor,
             channel_motor1,
             channel_motor2):
-        g.setmode(g.BOARD)
+        g.setmode(g.BCM)
         # left motor
         self.__left_motor_A = pin1_left_motor
         self.__left_motor_B = pin2_left_motor
