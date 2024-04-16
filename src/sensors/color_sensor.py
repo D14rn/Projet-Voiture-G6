@@ -6,17 +6,17 @@ class ColorSensor(Sensor):
     """
     Capteur couleur (RGB) utilisant le capteur TCS34725 pour détecter si la couleur est verte
     """
-    def __init__(self, name, pin):
-        super().__init__(name)
-        self.__pin = pin
+    def __init__(self, s_name, gain=4):
+        super().__init__(s_name)
         self.__sensor = adafruit_tcs34725.TCS34725(board.I2C())
+        self.__sensor.gain = gain # can be 1, 4, 16, 60
 
     def get_value(self) -> tuple:
         """
         Renvoie un tuple des valeurs rgb (r, g, b) du capteur 
         """
         try:
-            self._value = self.__sensor.color_rgb_bytes()
+            self._value = self.__sensor.color_rgb_bytes
             return self.value
         except Exception as e:
             logging.error(e)
