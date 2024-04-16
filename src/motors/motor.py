@@ -54,7 +54,7 @@ class Motor:
             g.output(self.__right_motor_B, g.HIGH)
         self.__pwm.write(self.__left_motor_driver, self.__min, speed)
         self.__pwm.write(self.__right_motor_driver, self.__min, speed)
-        return speed
+        return speed #recuperation de l' actuel valeur de la vitesse qui est set.
 
     def stop(self):
         """
