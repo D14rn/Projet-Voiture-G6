@@ -9,6 +9,10 @@ class MovementController:
 
     def go_forward(self) -> None:
         self.__motor.move(self.__speed)
+    
+    def change_speed(self, new_speed):
+        res = min(max(0, new_speed), 100)
+        self.__speed = res
 
     def go_backward(self) -> None:
         self.__motor.move(-self.__speed, backward=True)
@@ -18,7 +22,17 @@ class MovementController:
 
     def turn_right(self) -> None:
         self.__direction.turn_right(45)
+    
+    def reset_direction(self):
+        self.__direction.home()
 
     def stop(self) -> None:
         self.__motor.stop()
-        self.__direction.home()
+
+    def accelerate(self):
+        self.__speed += 10
+        self.__motor.move()
+    
+    def reset(self):
+        self.stop()
+        self.reset_direction()
