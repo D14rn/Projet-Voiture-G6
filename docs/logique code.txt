@@ -1,0 +1,32 @@
+Capteurs (Ultrason, IR, RGB, CapCour):
+Les classes capteurs s'occupent de récupérer les valeurs crues du capteur physique, et de fournir des méthodes afin de les transformer en des données utilisables pour une application
+=> exemple: le capteur ultrason doit s'occuper des calculs pour retourner une valeur en cm
+
+Les capteurs doivent aussi être capables de fonctionner en parallèle (threading) avec une méthode qui s'occupera de mettre à jour les valeurs "crues", en tant réel.
+
+Moteurs:
+Les classes moteurs doivent fournir des méthodes afin de contrôler les moteurs physiques, elles doivent aussi ajouter une couche de sécurité, afin de ne pas envoyer des valeurs dangereuses.
+
+Contrôleurs:
+Les contrôleurs forment une interface entre l'application et les classes de gestion de composants.
+Ils regroupent les composants physiques qui sont souvent utilisés ensembles afin de fournir des méthodes de confort, qui allègent le code de l'application.
+
+=> Pour la récupération de données, ou les actions sur les moteurs, aucune méthode ne doit être BLOCANTE, afin de ne pas arrêter le fonctionnement de l'application.
+
+Application:
+L'application s'occupera d'initialiser les différents objets nécessaires (Capteurs, Moteurs, Contrôleurs, ...)
+L'application aura 2 grosses parties:
+- Menu
+- Algorithme
+
+Menu:
+Il permettra de choisir le mode voulu (autonome/manuel)
+- Mode manuel:
+Le mode manuel permettra d'effectuer des actions de déplacement à partir de la console
+(Bonus) Il affichera aussi à la console les "états" de la voiture (peut-être en ajoutant des logs dans les capteurs et on change le niveau de logging dans ce mode) 
+- Mode autonome:
+Le mode autonome aura un mini menu pour l'initialiser avec le nombre de tours qu'il devra effectuer
+Il lancera alors l'algorithme de navigation autonome dans un thread séparé afin de permettre à l'utilisateur d'effectuer des choix (arrêter l'algorithme, ajouter/retirer des tours, (Optionnel: mettre en pause l'algorithme))
+
+- Algorithme
+Il se servira des données renvoyées par les contrôleurs (ou des capteurs directement si nécessaire) et effectuera des choix en réponse.
