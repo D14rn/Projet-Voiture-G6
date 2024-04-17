@@ -11,17 +11,13 @@ class DistanceControllerTest(unittest.TestCase):
 
     def tearDown(self)-> None:
         del self.distController
-
     def test_start(self):
-        self.assertIsNotNone(self.distController)
-        self.assertIsInstance(self.distController, DistanceController)
         self.distController.start()
-        self.assertTrue(self.front_sensor.activate())
-        self.assertTrue(self.left_sensor.activate())
-        self.assertTrue(self.right_sensor.activate())
+        self.assertTrue(self.front_sensor._active,True)
+        self.assertTrue(self.left_sensor._active,True)
+        self.assertTrue(self.right_sensor._active,True)
         
     def test_front_distance(self):
-        # Simulation d'une valeur de capteur
         self.front_sensor.value = 30.123
         self.assertAlmostEqual(self.distController.front_distance(),30.123,2)
 
@@ -37,9 +33,9 @@ class DistanceControllerTest(unittest.TestCase):
         self.assertIsNotNone(self.distController)
         self.assertIsInstance(self.distController, DistanceController)
         self.distController.stop()
-        self.assertTrue(self.front_sensor.deactivate())
-        self.assertTrue(self.left_sensor.deactivate())
-        self.assertTrue(self.right_sensor.deactivate())
+        self.assertTrue(self.front_sensor._active,False)
+        self.assertTrue(self.left_sensor._active,False)
+        self.assertTrue(self.right_sensor._active,False)
 
 if __name__ == "__main__":
     unittest.main()

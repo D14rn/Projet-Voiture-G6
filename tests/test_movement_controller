@@ -6,13 +6,43 @@ class MovementControllerTest(unittest.TestCase):
     def setUp(self) -> None:
         self.motor = Motor(17,18,27,22,4,5)
         self.direction = Direction()
-        self.speed = 40
+        self.speed = 33
         self.movementController = MovementController(self.direction,self.motor, self.speed)
-    
     def tearDown(self) -> None:
         del self.movementController
 
+    def test_movement_controller_instance(self):
+        self.assertIsInstance(self.movementController.__motor,Motor)
+        self.assertIsInstance(self.movementController.__direction,Direction)
+        self.assertIsInstance(self.movementController.__speed,int)
+        self.assertGreaterEqual(self.movementController.__speed,1)
+        self.assertIsNotNone(self.movementController)
+        self.assertIsInstance(self.movementController,MovementController)
+
     def test_go_forward(self):
+        if self.assertGreater(self.movementController.__speed,0,'Attention speed value is 0'):
+            self.movementController.go_forward()
+    
+    def test_go_backrward(self):
+        pass
+        
+
+    def test_change_speed(self):
+        pass
+
+    def test_turn_left(self):
+        pass
+
+    def test_turn_right(self):
+        pass
+
+    def test_reset_direction(self):
+        pass
+
+    def test_stop(self):
+        pass
+
+    def test_reset(self):
         pass
 
 if __name__ == "__main__":
