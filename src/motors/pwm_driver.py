@@ -193,7 +193,7 @@ class PWM(object):
 
     @property
     def frequency(self):
-        return _frequency
+        return self._frequency
 
     @frequency.setter
     def frequency(self, freq):

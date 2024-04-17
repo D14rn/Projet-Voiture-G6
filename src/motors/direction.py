@@ -12,11 +12,26 @@ class Direction:
         self.__wait_time = 0.025 # Temps d'attente pour que le servo ait le temps de tourner
         self.__min = 360 # borne gauche
         self.__max = 550 # borne droite
+
+    @property
+    def pwm(self) -> PWM:
+        return self.__pwm
+    
+    @property
+    def min(self) -> int:
+        return self.__min
+    
+    @property
+    def max(self) -> int:
+        return self.__max
+    
+    @property
+    def wait_time(self) -> float:
+        return self.__wait_time
     
     def _calc_angle(self, angle) -> int:
         angle = max(-45, min(45, angle))  # angle entre [-45, 45]
-        angle = self.__min + ((angle) / 90.0) * (self.__max - self.__min)
-        print(angle)
+        angle = self.__min + ((angle) / 90.0) * (self.__max - self.__min) # conversion de l'angle en signal PWM
         return int(angle)
     
     def turn_left(self, angle) -> None:

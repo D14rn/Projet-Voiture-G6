@@ -31,6 +31,42 @@ class Motor:
         self.__pwm.frequency = 50
         self.__min = 0 # min pwm (speed)
         self.__max = 4095 # max pwm (speed)
+
+    @property
+    def pwm(self):
+        return self.__pwm
+    
+    @property
+    def min(self):
+        return self.__min
+    
+    @property
+    def max(self):
+        return self.__max
+    
+    @property
+    def left_motor_A(self):
+        return self.__left_motor_A
+    
+    @property
+    def left_motor_B(self):
+        return self.__left_motor_B
+    
+    @property
+    def left_motor_driver(self):
+        return self.__left_motor_driver
+    
+    @property
+    def right_motor_A(self):
+        return self.__right_motor_A
+    
+    @property
+    def right_motor_B(self):
+        return self.__right_motor_B
+    
+    @property
+    def right_motor_driver(self):
+        return self.__right_motor_driver
     
     def move(self, speed, backward=False):
         """
@@ -40,7 +76,7 @@ class Motor:
             self.__pwm.write(self.__left_motor_driver, self.__min, 0)
             self.__pwm.write(self.__right_motor_driver, self.__min, 0)
         else:
-            speed = int(self.__max * speed / 100)
+            speed = int(min(self.__max, (self.__max * speed / 100)))
 
         if not backward:
             g.output(self.__left_motor_A, g.HIGH)

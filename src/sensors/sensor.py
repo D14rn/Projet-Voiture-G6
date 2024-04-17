@@ -46,7 +46,6 @@ class Sensor(ABC, Thread):
         Lance la prise de mesure du capteur
         """
         self._active = True
-        self.start()
 
     def deactivate(self):
         """
