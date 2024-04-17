@@ -38,6 +38,7 @@ Ceux-ci sont placés dans un sous-dossier à part et il faut les glisser à la r
 ```shell
 pip3 install adafruit-circuitpython-tcs34725
 pip3 install adafruit-circuitpython-pca9685
+pip3 install adafruit-circuitpython-ina219
 pip3 install adafruit-circuitpython-servokit
 ```
 
@@ -47,10 +48,11 @@ pip3 install adafruit-circuitpython-servokit
 apt update
 apt install -y python-smbus i2c-tools
 
-pip install RPi.GPIO
+pip3 install RPi.GPIO
 pip3 install i2cdevice
 pip3 install busio
 pip3 install adafruit-circuitpython-tcs34725
+pip3 install adafruit-circuitpython-ina219
 pip3 install pi-ina219
 pip3 install adafruit-circuitpython-pca9685
 pip3 install adafruit-circuitpython-servokit
