@@ -1,10 +1,6 @@
 from .sensor import Sensor
 import board, logging
-<<<<<<< Updated upstream
-from adafruit_ina219 import ADCResolution, BusVoltageRange, INA219
-=======
 from adafruit_ina219 import INA219
->>>>>>> Stashed changes
 
 
 class CurrentSensor(Sensor):

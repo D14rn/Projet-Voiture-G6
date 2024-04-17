@@ -16,14 +16,15 @@ class DistanceSensorTest(unittest.TestCase):
     def test_attributes_front_sensor(self):
         for sensor in self.sensors:
             self.assertIsNotNone(sensor)
-            self.assertIsInstance(self.sensor, DistanceSensor)
+            self.assertIsInstance(sensor, DistanceSensor)
 
     def test_get_value(self):
-        correct_values = [i for i in range(0, 100)]
+        correct_values = [i for i in range(0, 300)]
         for sensor in self.sensors:
             print(f'--- Testing {sensor.s_name} ----')
             for _ in range(10):
                 value = sensor.get_value()
+                print(f"Distance: {round(value, 2)}cm")
                 self.assertIn(value, correct_values)
                 time.sleep(1)
 

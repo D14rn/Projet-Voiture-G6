@@ -7,33 +7,26 @@ from src.lib import exit_handler
 
 def forward_procedure(movement_controller: MovementController, start_speed, end_speed, speed_increment, acceleration_delay):
     for speed in range(start_speed, end_speed, speed_increment):
-        movement_controller.change_speed(speed)
-        movement_controller.go_forward()
+        movement_controller.go_forward(speed)
         time.sleep(acceleration_delay)
     
-    time.sleep(1)
     for speed in range(end_speed, start_speed, -speed_increment):
-        movement_controller.change_speed(speed)
-        movement_controller.go_forward()
+        movement_controller.go_forward(speed)
         time.sleep(acceleration_delay)
 
     movement_controller.stop()
-    time.sleep(1)
+
 
 def backward_procedure(movement_controller: MovementController, start_speed, end_speed, speed_increment, acceleration_delay):
     for speed in range(start_speed, end_speed, speed_increment):
-        movement_controller.change_speed(speed)
-        movement_controller.go_backward()
+        movement_controller.go_backward(speed)
         time.sleep(acceleration_delay)
     
-    time.sleep(1)
     for speed in range(end_speed, start_speed, -speed_increment):
-        movement_controller.change_speed(speed)
-        movement_controller.go_backward()
+        movement_controller.go_backward(speed)
         time.sleep(acceleration_delay)
 
     movement_controller.stop()
-    time.sleep(1)
 
 
 def run_forest_run(movement_controller: MovementController):
@@ -57,4 +50,4 @@ if __name__ == "__main__":
 
     test_direction = Direction()
     test_movement_controller = MovementController(motor=test_motor, direction=test_direction)
-    run_forest_run(test_movement_controller)
+    run_forest_run(test_motor, test_direction)
