@@ -17,20 +17,28 @@ class LightSensorTest(unittest.TestCase):
         self.assertEqual(self.sensor.s_name, "Light sensor")
 
     def test_get_value(self):
+        print("--- Testing light sensor : get_value() method ---")
         for _ in range(10):
             value = self.sensor.get_value()
+            print(f"Value: {value}")
             self.assertIn(value, [0, 1])
             time.sleep(1)
 
     def test_get_value_not_black(self):
+        print("--- Testing light sensor : get_value() method (not black case) ---")
+        time.sleep(5)
         for _ in range(10):
             value = self.sensor.get_value()
+            print(f"Value: {value}")
             self.assertFalse(value)
             time.sleep(1)
 
     def test_get_value_black(self):
+        print("--- Testing light sensor : get_value() method (black case) ---")
+        time.sleep(5)
         for _ in range(10):
             value = self.sensor.get_value()
+            print(f"Value: {value}")
             self.assertTrue(value)
             time.sleep(1)
 
