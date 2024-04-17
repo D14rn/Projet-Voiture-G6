@@ -19,14 +19,17 @@ class DistanceControllerTest(unittest.TestCase):
         
     def test_front_distance(self):
         self.front_sensor.value = 30.123
+        self.assertIsInstance(self.distController.front_distance(),float) 
         self.assertAlmostEqual(self.distController.front_distance(),30.123,2)
 
     def test_left_distance(self):
         self.left_sensor.value = 15.678
+        self.assertIsInstance(self.distController.left_distance(),float) 
         self.assertAlmostEqual(self.distController.left_distance(),15.678,2)
 
     def test_right_distance(self):
         self.right_sensor.value = 40.987
+        self.assertIsInstance(self.distController.right_distance(),float) 
         self.assertAlmostEqual(self.distController.right_distance(),40.987,2)
 
     def test_stop(self):
