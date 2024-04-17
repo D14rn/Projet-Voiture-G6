@@ -1,0 +1,19 @@
+import unittest, time
+from src.controllers import MovementController
+from src.motors import Motor, Direction
+
+class MovementControllerTest(unittest.TestCase):
+    def setUp(self) -> None:
+        self.motor = Motor(17,18,27,22,4,5)
+        self.direction = Direction()
+        self.speed = 40
+        self.movementController = MovementController(self.direction,self.motor, self.speed)
+    
+    def tearDown(self) -> None:
+        del self.movementController
+
+    def test_go_forward(self):
+        pass
+
+if __name__ == "__main__":
+    unittest.main()
