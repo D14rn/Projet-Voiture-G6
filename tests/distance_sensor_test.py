@@ -19,13 +19,12 @@ class DistanceSensorTest(unittest.TestCase):
             self.assertIsInstance(sensor, DistanceSensor)
 
     def test_get_value(self):
-        correct_values = [i for i in range(0, 300)]
         for sensor in self.sensors:
             print(f'--- Testing {sensor.s_name} ----')
             for _ in range(10):
                 value = sensor.get_value()
                 print(f"Distance: {round(value, 2)}cm")
-                self.assertIn(value, correct_values)
+                self.assertTrue(value > 0 and value < 300)
                 time.sleep(1)
 
 if __name__ == "__main__":
