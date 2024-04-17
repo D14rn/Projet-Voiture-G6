@@ -12,6 +12,10 @@ class LightSensor(Sensor):
         g.setmode(g.BCM)
         g.setup(pin, g.IN) # We only need to receive input
 
+    @property
+    def pin(self):
+        return self.__pin
+
     def get_value(self) -> bool:
         """
         Renvoie la valeur de lumière (0/False: RGB, 1/True: black)

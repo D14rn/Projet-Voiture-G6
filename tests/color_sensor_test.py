@@ -14,7 +14,7 @@ class ColorSensorTest(unittest.TestCase):
         self.assertIsInstance(self.sensor, ColorSensor)
         self.assertIsNotNone(self.sensor)
         self.assertEqual(self.sensor.s_name, "Color sensor")
-        self.assertIsNotNone(self.sensor.ensor)
+        self.assertIsNotNone(self.sensor.sensor)
         self.assertEqual(self.sensor.sensor.gain, 4)
 
     def test_get_value_types(self):

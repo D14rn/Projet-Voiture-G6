@@ -11,6 +11,10 @@ class ColorSensor(Sensor):
         self.__sensor = adafruit_tcs34725.TCS34725(board.I2C())
         self.__sensor.gain = gain # can be 1, 4, 16, 60
 
+    @property
+    def sensor(self):
+        return self.__sensor
+
     def get_value(self) -> tuple:
         """
         Renvoie un tuple des valeurs rgb (r, g, b) du capteur 
