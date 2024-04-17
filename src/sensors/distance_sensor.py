@@ -15,6 +15,14 @@ class DistanceSensor(Sensor):
         g.setup(self.__trigger_pin, g.OUT)
         g.setup(self.__echo_pin, g.IN)
 
+    @property
+    def trigger_pin(self):
+        return self.__trigger_pin
+    
+    @property
+    def echo_pin(self):
+        return self.__echo_pin
+
     def get_value(self) -> float:
         """
         Donne la distance (en cm) entre le capteur et l'objet le plus proche

@@ -14,7 +14,7 @@ class ColorSensorTest(unittest.TestCase):
         self.assertIsInstance(self.sensor, ColorSensor)
         self.assertIsNotNone(self.sensor)
         self.assertEqual(self.sensor.s_name, "Color sensor")
-        self.assertIsNotNone(self.sensor.ensor)
+        self.assertIsNotNone(self.sensor.sensor)
         self.assertEqual(self.sensor.sensor.gain, 4)
 
     def test_get_value_types(self):
@@ -28,23 +28,31 @@ class ColorSensorTest(unittest.TestCase):
 
     def test_get_value(self):
         values = [i for i in range(0,255)]
+        print("--- Testing color sensor : get_value() method ---")
         for _ in range(10):
             r, g, b = self.sensor.get_value()
-            self.asserIn(r, values)
-            self.asserIn(g, values)
-            self.asserIn(b, values)
+            print(f"R: {r}, G: {g}, B: {b}")
+            self.assertIn(r, values)
+            self.assertIn(g, values)
+            self.assertIn(b, values)
             time.sleep(1)
 
     def test_is_green_not_green(self):
+        print("--- Testing color sensor : is_green() method (not green case) ---")
+        time.sleep(5)
         for _ in range(10):
-            self.assertFalse(self.sensor.is_green())
+            output = self.sensor.is_green()
+            print(f"Is green: {output}")
+            self.assertFalse(output)
             time.sleep(1)
 
     def test_is_green_green(self):
-        print("Testing green color, try putting some green stuff in front!")
+        print("--- Testing color sensor : is_green() method (green case) ---")
         time.sleep(5)
         for _ in range(10):
-            self.assertTrue(self.sensor.is_green())
+            output = self.sensor.is_green()
+            print(f"Is green: {output}")
+            self.assertTrue(output)
             time.sleep(1)
 
 

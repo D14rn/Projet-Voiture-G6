@@ -1,17 +1,15 @@
 from .sensor import Sensor
-import board
-from adafruit_ina219 import ADCResolution, BusVoltageRange, INA219
+import board, logging
+from adafruit_ina219 import INA219
 
 
 class CurrentSensor(Sensor):
     """
     Capteur de courant -> utilisé pour mesurer la consommation électrique du robot
     """
-
     def __init__(self, name):
         super().__init__(name)
         self.__ina = INA219(board.I2C())
-
 
     def get_value(self):
         """
