@@ -1,5 +1,5 @@
 from .sensor import Sensor
-import board
+import board, logging
 from adafruit_ina219 import ADCResolution, BusVoltageRange, INA219
 
 
