@@ -19,27 +19,30 @@ class MovementControllerTest(unittest.TestCase):
         self.assertIsNotNone(self.movementController)
         self.assertIsInstance(self.movementController,MovementController)
 
-    def test_attributes(self):
-
-
     def test_go_forward(self):
-        self.assertIsInstance()
-        if self.assertGreater(self.movementController.__speed,0,'Attention speed value is 0'):
-            self.movementController.go_forward()
+        self.assertIsInstance(self.movementController.__speed,float)
+        self.assertGreater(self.movementController.__speed,0,'Attention speed value is 0')
+        self.movementController.go_forward()
     
     def test_go_backward(self):
-        
-        pass
+        self.assertIsInstance(self.movementController.__speed,float)
+        self.assertGreater(self.movementController.__speed,0,'Attention speed value is 0')
+        self.movementController.go_backward()
         
 
     def test_change_speed(self):
-        pass
+        old_speed=self.movementController.__speed
+        self.movementController.change_speed()
+        self.assertNotEqual(old_speed,self.movementController.__speed)
 
     def test_turn_left(self):
-        pass
+        self.movementController#continuer dici
 
     def test_turn_right(self):
         pass
+
+    def test_accelerate(self):
+        self.movementController.__speed
 
     def test_reset_direction(self):
         pass
