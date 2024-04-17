@@ -7,12 +7,8 @@ from src.lib import exit_handler
 _SPEED = 30
 
 def go_30_cm(motor: Motor, direction: Direction):
-    if input("press f for forward, b for backward: ") == 'f':
-        _BACKWARD = False
-    else:
-        _BACKWARD = True
     direction.home()
-    motor.move(_SPEED, _BACKWARD)
+    motor.move(_SPEED)
     time.sleep(1.5)
     motor.stop()
 
