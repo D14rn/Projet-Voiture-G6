@@ -108,7 +108,7 @@ class Car():
         Fais avancer la voiture et évite les obstacles sur son chemin
         """
         self.vivek.start()
-        self.samir.go_forward()
+        self.samir.speed = 40
         start_time = t.time()
         while (t.time() - start_time) < duration:
             if self.vivek.front_distance < 20:
@@ -122,16 +122,21 @@ class Car():
                 t.sleep(2)
                 self.samir.sharp_left()
                 t.sleep(0.2)
+                break
         self.samir.reset()
         self.vivek.stop()
+
+    def racing_strategy(self) -> None:
+        
 
     def autonomous_mode(self) -> None:
         """
         Déplacement autonome : la voiture se déplace toute seule à l'aide des capteurs
         """
         self.vivek.start()
+        self.state_controller.start()
         self.state_controller.should_start_race()
-        self.samir.speed = 50
+        self.samir.speed = 40
         while self.state_controller.should_continue_race():
             self.samir.stay_center()
         self.samir.reset()
