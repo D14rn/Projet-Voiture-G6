@@ -38,10 +38,11 @@ menu = """
 
 print(menu)
 choice = input("Enter your choice: ")
+duration = int(input("Enter the duration of test: "))
 if choice == "1":
-    voiture.follow_right_wall(True)
+    voiture.follow_right_wall(duration)
 if choice == "2":
-    voiture.follow_left_wall(True)
+    voiture.follow_left_wall(duration)
 if choice == "3":
     print(""" ________________________
              |                        |
