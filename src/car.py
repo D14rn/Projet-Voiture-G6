@@ -129,6 +129,23 @@ class Car():
     def racing_strategy(self) -> None:
         
 
+    def back_it_up(self) -> None:
+        """
+        Fais reculer la voiture
+        """
+        self.samir.reset()
+        t.sleep(1.5)
+        l = self.vivek.left_distance
+        r = self.vivek.right_distance
+        if l < r:
+            self.samir.medium_left()
+        else:
+            self.samir.medium_right()
+        self.samir.speed = -50
+        t.sleep(1)
+        self.samir.reset()
+        t.sleep(0.5)
+
     def autonomous_mode(self) -> None:
         """
         Déplacement autonome : la voiture se déplace toute seule à l'aide des capteurs
@@ -140,8 +157,11 @@ class Car():
         while self.state_controller.should_continue_race():
             self.samir.stay_center()
         self.samir.reset()
+        self.vivek.stop()
+        self.state_controller.stop()
 
     def controlled_mode(self):
         """
         Déplacement contrôlé : l'utilisateur contrôle la voiture
         """
+        pass
