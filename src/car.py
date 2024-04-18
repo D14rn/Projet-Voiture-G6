@@ -37,6 +37,13 @@ class Car():
         """
         return self.__distance_controller
 
+    @property
+    def state_controller(self):
+        """
+        Contrôleur d'état de la voiture dans la course
+        """
+        return self.__state_controller
+
     def __str__(self) -> str:
         return str(self.__dict__)
 
@@ -111,8 +118,12 @@ class Car():
         """
         Déplacement autonome : la voiture se déplace toute seule à l'aide des capteurs
         """
-        # Implement the autonomous mode here
-        pass
+        self.vivek.start()
+        self.state_controller.should_start_race()
+        self.samir.speed = 50
+        while self.state_controller.should_continue_race():
+            self.samir.stay_center()
+        self.samir.reset()
 
     def controlled_mode(self):
         """

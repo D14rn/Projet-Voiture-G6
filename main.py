@@ -17,7 +17,7 @@ movement_controller = MovementController(direction, motor, 50)
 # Instantiate the state sensors
 colorSensor = ColorSensor("color sensor")
 lightSensor = LightSensor("light sensor", 20)
-state_controller = StateController(colorSensor, lightSensor, 2)
+state_controller = StateController(colorSensor, lightSensor, lap_count=3)
 
 voiture = Car(movement_controller, distance_controller, state_controller)
 
@@ -29,33 +29,40 @@ menu = """
 |--&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&--|
 |----- 1. Follow right wall ---------------|
 |----- 2. Follow left wall ----------------|
-|----- 3. Avoid object --------------------|
-|----- 4. Get light sensor value ----------|
+|----- 3. Control mode --------------------|
+|----- 4. Avoid object --------------------|
+|----- 5. Get light sensor value ----------|
+|----- 6. Auto mode -----------------------|
 |------------------------------------------|
 |--------| Press enter to exit |-----------|
 |------------------------------------------|
 """
 
-print(menu)
-choice = input("Enter your choice: ")
-duration = int(input("Enter the duration of test: "))
-if choice == "1":
-    voiture.follow_right_wall(duration)
-if choice == "2":
-    voiture.follow_left_wall(duration)
-if choice == "3":
-    print(""" ________________________
-             |                        |
-             |        Controls        |
-             |------------------------|
-             |  z: go forward         |
-             |  s: go backward        |
-             |  q: turn left          |
-             |  d: turn right         |
-             |________________________|
-            """)
-    voiture.controlled_mode()
-if choice == "4":
-    voiture.avoid_object()
-if choice == "5":
-    lightSensor.get_value()
+if __name__ == '__main__':
+    print(menu)
+    choice = input("Enter your choice: ")
+    match choice:
+        case "1":
+            duration = int(input("Enter the duration of test: "))
+            voiture.follow_right_wall(duration)
+        case "2":
+            duration = int(input("Enter the duration of test: "))
+            voiture.follow_left_wall(duration)
+        case "3":
+            print(""" ________________________
+                    |                        |
+                    |        Controls        |
+                    |------------------------|
+                    |  z: go forward         |
+                    |  s: go backward        |
+                    |  q: turn left          |
+                    |  d: turn right         |
+                    |________________________|
+                    """)
+            voiture.controlled_mode()
+        case "4":
+            voiture.avoid_object()
+        case "5":
+            lightSensor.get_value()
+        case "6":
+            voiture.autonomous_mode()

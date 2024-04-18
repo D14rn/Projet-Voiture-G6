@@ -11,6 +11,7 @@ class LightSensor(Sensor):
     def __init__(self, name, pin):
         super().__init__(name)
         self.__pin = pin
+        self.__wait = 2
         g.setmode(g.BCM)
         g.setup(pin, g.IN) # We only need to receive input
 
@@ -22,8 +23,9 @@ class LightSensor(Sensor):
         """
         Renvoie la valeur de lumière (0/False: RGB, 1/True: black)
         """
-        try:
-            self._value =  g.input(self.__pin)
+        try: 
+            self._value = g.input(self.__pin)
+            t.sleep(self.__wait)
             return self.value
         except Exception as e:
             logging.error(e)
