@@ -12,9 +12,8 @@ def print_sensor_values(distance_controller: DistanceController):
 def test_sensors(distance_controller: DistanceController):
     distance_controller.start()
     for thread in threading.enumerate():
-         print(f"Fuck you: {thread.name}")
+         print(f"Thread name: {thread.name}")
     time.sleep(1)
-    print("hah")
     for _ in range(10):
         print_sensor_values(distance_controller)
         time.sleep(0.5)
@@ -23,13 +22,11 @@ def test_sensors(distance_controller: DistanceController):
 
 if __name__ == "__main__":
     for thread in threading.enumerate():
-         print(f"Fuck you: {thread.name}")
+         print(f"Thread name: {thread.name}")
     front_sensor = front_distance_sensor()
     right_sensor = right_distance_sensor()
     left_sensor = left_distance_sensor()
 
     test_sensors(DistanceController(front_sensor, left_sensor, right_sensor))
-    print("wtf")
-    print("when the party dont stop")
     for thread in threading.enumerate():
-         print(f"Fuck you: {thread.name}")
+         print(f"Thread name: {thread.name}")
