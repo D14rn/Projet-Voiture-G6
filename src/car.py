@@ -39,14 +39,15 @@ class Car():
     def __str__(self) -> str:
         return str(self.__dict__)
 
-    def follow_right_wall(self, wall: bool) -> None:
+    def follow_right_wall(self, duration: float|int) -> None:
         """
         Fais avancer la voiture à une distance fixe d'un mur durant durée déterminée
         """
         self.vivek.start()
         self.samir.go_forward()
         start_time = t.time()
-        while wall:
+
+        while t.time() - start_time < duration:
             if self.vivek.right_distance > 22:
                 self.samir.easy_right()
             elif self.vivek.right_distance < 17:
@@ -56,8 +57,23 @@ class Car():
         self.samir.stop()
         self.vivek.stop()
 
-    def follow_left_wall(self, wall: bool) -> None:
-        pass
+    def follow_left_wall(self, duration: float|int) -> None:
+        """
+        Fais avancer la voiture à une distance fixe d'un mur durant durée déterminée
+        """
+        self.vivek.start()
+        self.samir.go_forward()
+        start_time = t.time()
+
+        while t.time() - start_time < duration:
+            if self.vivek.left_distance > 22:
+                self.samir.easy_left()
+            elif self.vivek.left_distance < 17:
+                self.samir.easy_right()
+            else:
+                self.samir.stay_center()
+        self.samir.stop()
+        self.vivek.stop()
 
     def avoid_object(self, duration: int = 10) -> None:
         """
