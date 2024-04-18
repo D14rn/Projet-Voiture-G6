@@ -33,6 +33,9 @@ class DistanceController:
         """
         Lance les threads des capteurs
         """
+        self.__front.get_value()
+        self.__left.get_value()
+        self.__right.get_value()
         self.__front.activate()
         self.__left.activate()
         self.__right.activate()

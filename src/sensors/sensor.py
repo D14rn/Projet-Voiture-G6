@@ -7,7 +7,7 @@ class Sensor(ABC, Thread):
     """
     Représente un capteur générique ayant un nom et une fréquence de rafraîchissement
     """
-    def __init__(self, s_name: str, polling_interval=0.2) -> None:
+    def __init__(self, s_name: str, polling_interval=0.1) -> None:
         super().__init__()
         Thread.__init__(self) 
         self._s_name = s_name
@@ -37,7 +37,7 @@ class Sensor(ABC, Thread):
         raise NotImplementedError("You must implement this method in your class")
     
     def run(self):
-        while self.active: # Boucle infinie pour mettre à jour la valeur du capteur
+        while self._active: # Boucle infinie pour mettre à jour la valeur du capteur
             self.get_value()
             t.sleep(self._polling_interval)
 
