@@ -12,6 +12,7 @@ class LightSensor(Sensor):
         super().__init__(name)
         self.__pin = pin
         self.__wait = 2
+        self.__last_update = 0
         g.setmode(g.BCM)
         g.setup(pin, g.IN) # We only need to receive input
 
@@ -24,7 +25,8 @@ class LightSensor(Sensor):
         Renvoie la valeur de lumière (0/False: RGB, 1/True: black)
         """
         try:
-            if t.time() - self._last_update > self.__wait: 
+            if t.time() - self.__last_update > self.__wait: 
+                self.__last_update = t.time()
                 self._value = g.input(self.__pin)
                 return self.value
         except Exception as e:
