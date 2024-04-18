@@ -23,9 +23,9 @@ class LightSensor(Sensor):
         """
         Renvoie la valeur de lumière (0/False: RGB, 1/True: black)
         """
-        try: 
-            self._value = g.input(self.__pin)
-            t.sleep(self.__wait)
-            return self.value
+        try:
+            if t.time() - self._last_update > self.__wait: 
+                self._value = g.input(self.__pin)
+                return self.value
         except Exception as e:
             logging.error(e)
