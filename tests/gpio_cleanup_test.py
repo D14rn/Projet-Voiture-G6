@@ -1,3 +1,6 @@
+"""
+Test de l'import du module exit_handler (l'import au milieu du code est donc normal!)
+"""
 import unittest
 
 class CleanupTest(unittest.TestCase):
