@@ -4,6 +4,7 @@
 
 https://www.youtube.com/watch?v=D9-voINFkCg
 """
+from pynput import keyboard
 import time as t
 from src.controllers import MovementController, DistanceController, StateController
 
@@ -112,9 +113,43 @@ class Car():
         # Implement the autonomous mode here
         pass
 
-    def controlled_mode(self) -> None:
+    def on_press(self, key):
+        try:
+            # Si la touche pressée est Z, Q, S ou D
+            if key.char.lower() in ['z']:
+                self.samir.go_forward()
+
+            elif key.char.lower() in ['s']:
+                self.samir.go_backward()
+
+            if key.char.lower() in ['q']:
+                self.samir.easy_left()
+
+            elif key.char.lower() in ['d']:
+                self.samir.easy_right()
+
+            if key.char.lower() in ['p']:
+                # Si la touche appuyée est p, arrête l'écoute
+                return False
+
+        except AttributeError:
+            # Si la touche pressée n'est pas une lettre
+            pass
+
+    def on_release(self, key):
+        try:
+            # Si la touche relâchée est Z, Q, S ou D
+            if key.char.lower() in ['z', 'q', 's', 'd']:
+                self.__movement_controller.reset()
+        except AttributeError:
+            # Si la touche relâchée n'est pas une lettre
+            pass
+
+    def controlled_mode(self):
         """
         Déplacement contrôlé : l'utilisateur contrôle la voiture
         """
-        # Implement here the controlled mode
+        # Configuration des écouteurs de clavier
+        with keyboard.Listener(on_press=self.on_press, on_release=self.on_release) as listener:
+            listener.join()
         pass
