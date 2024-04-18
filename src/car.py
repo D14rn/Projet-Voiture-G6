@@ -5,7 +5,8 @@
 https://www.youtube.com/watch?v=D9-voINFkCg
 """
 import time as t
-from src.controllers import MovementController, DistanceController, StateController
+from .controllers import MovementController, DistanceController, StateController
+from .lib import exit_handler
 
 
 class Car():
@@ -43,27 +44,29 @@ class Car():
         """
         Fais avancer la voiture à une distance fixe d'un mur durant durée déterminée
         """
-        self.vivek.start()
-        self.samir.stay_center()
-        self.samir.speed = 30
-        start_time = t.time()
-        while t.time() - start_time < duration:
-            if self.vivek.right_distance < 10:
-                self.samir.sharp_left()
-            elif self.vivek.right_distance < 14:
-                self.samir.medium_left()
-            elif self.vivek.right_distance < 18:
-                self.samir.easy_left()
-            elif self.vivek.right_distance > 22:
-                self.samir.easy_right()
-            elif self.vivek.right_distance > 26:
-                self.samir.medium_right()
-            elif self.vivek.right_distance > 30:
-                self.samir.sharp_right()
-            else:
-                self.samir.stay_center()
-        self.samir.reset()
-        self.vivek.stop()
+        try:
+            self.vivek.start()
+            self.samir.stay_center()
+            self.samir.speed = 30
+            start_time = t.time()
+            while t.time() - start_time < duration:
+                if self.vivek.front_distance < 55:
+                    self.samir.turn_left(10)
+                elif self.vivek.right_distance < 8:
+                    self.samir.turn_left(25)
+                elif self.vivek.right_distance < 14:
+                    self.samir.turn_left(10)
+                elif self.vivek.right_distance > 24:
+                    self.samir.turn_right(20)
+                elif self.vivek.right_distance > 26:
+                    self.samir.turn_right(30)
+                else:
+                    self.samir.stay_center()
+        except:
+           pass
+        finally: 
+            self.samir.reset()
+            self.vivek.stop()
 
     def follow_left_wall(self, duration: float|int) -> None:
         """

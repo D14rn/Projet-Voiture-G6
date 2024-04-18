@@ -92,6 +92,7 @@ class Motor:
             g.output(self.__right_motor_A, g.HIGH)
             g.output(self.__right_motor_B, g.LOW)
         else:
+            print("Going backward")
             g.output(self.__left_motor_A, g.LOW)
             g.output(self.__left_motor_B, g.HIGH)
             g.output(self.__right_motor_A, g.LOW)

@@ -4,7 +4,6 @@ from .sensor import Sensor
 
 
 class DistanceSensor(Sensor):
-    lock = threading.Lock()
     """
     Capteur à ultrason HC-SR04 pour mesurer la distance avec les obstacles
 
@@ -25,6 +24,7 @@ class DistanceSensor(Sensor):
         self.__trigger_pin = trigger_pin
         self.__echo_pin = echo_pin
         self.__pulse_interval = 0.00001 # 10 µs
+        self.__mesures = []
         g.setmode(g.BCM)
         g.setup(self.__trigger_pin, g.OUT)
         g.setup(self.__echo_pin, g.IN)
@@ -37,11 +37,19 @@ class DistanceSensor(Sensor):
     def echo_pin(self):
         return self.__echo_pin
     
+    @property
+    def average_distance(self):
+        res = 0
+        mesure_count = len(self.__mesures)
+        if mesure_count < 1:
+            return 0
+        for mesure in self.__mesures:
+            res += mesure
+        return res / mesure_count
+    
     def run(self):
         while self._active: # Boucle infinie pour mettre à jour la valeur du capteur
-            #self.lock.acquire()
             self.get_value()
-            #self.lock.release()
             t.sleep(self._polling_interval)
 
     def get_value(self) -> float:
@@ -68,7 +76,8 @@ class DistanceSensor(Sensor):
 
             # Multiply by speed of sound (34300 cm/s)
             # Divide by 2 because it needs to travel back
-            self._value = (duration * 34300) / 2 
+            value = (duration * 34300) / 2
+            self._value = value
             return self.value
         except Exception as e:
             logging.error(e)
