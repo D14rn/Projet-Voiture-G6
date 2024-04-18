@@ -44,17 +44,25 @@ class Car():
         Fais avancer la voiture à une distance fixe d'un mur durant durée déterminée
         """
         self.vivek.start()
-        self.samir.go_forward()
+        self.samir.stay_center()
+        self.samir.speed = 30
         start_time = t.time()
-
         while t.time() - start_time < duration:
-            if self.vivek.right_distance > 22:
-                self.samir.easy_right()
-            elif self.vivek.right_distance < 17:
+            if self.vivek.right_distance < 10:
+                self.samir.sharp_left()
+            elif self.vivek.right_distance < 14:
+                self.samir.medium_left()
+            elif self.vivek.right_distance < 18:
                 self.samir.easy_left()
+            elif self.vivek.right_distance > 22:
+                self.samir.easy_right()
+            elif self.vivek.right_distance > 26:
+                self.samir.medium_right()
+            elif self.vivek.right_distance > 30:
+                self.samir.sharp_right()
             else:
                 self.samir.stay_center()
-        self.samir.stop()
+        self.samir.reset()
         self.vivek.stop()
 
     def follow_left_wall(self, duration: float|int) -> None:

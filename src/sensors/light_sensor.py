@@ -5,6 +5,8 @@ from .sensor import Sensor
 class LightSensor(Sensor):
     """
     Capteur de lumière -> utilisé pour détecter la ligne d'arrivée.
+
+    lumière: 20 (in)
     """
     def __init__(self, name, pin):
         super().__init__(name)

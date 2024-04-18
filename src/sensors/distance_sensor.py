@@ -1,10 +1,24 @@
 import time as t, logging, RPi.GPIO as g
+import threading
 from .sensor import Sensor
 
 
 class DistanceSensor(Sensor):
+    lock = threading.Lock()
     """
     Capteur à ultrason HC-SR04 pour mesurer la distance avec les obstacles
+
+    ultrason avant : 
+    Trigger : 6 (out)
+    Echo : 5 (in)
+
+    ultrason gauche :
+    Trigger : 11 (out)
+    Echo : 9 (in)
+
+    ultrason droit :
+    Trigger : 26 (out)
+    Echo : 19 (in)
     """
     def __init__(self, name, trigger_pin, echo_pin):
         super().__init__(name)
@@ -22,6 +36,13 @@ class DistanceSensor(Sensor):
     @property
     def echo_pin(self):
         return self.__echo_pin
+    
+    def run(self):
+        while self._active: # Boucle infinie pour mettre à jour la valeur du capteur
+            #self.lock.acquire()
+            self.get_value()
+            #self.lock.release()
+            t.sleep(self._polling_interval)
 
     def get_value(self) -> float:
         """

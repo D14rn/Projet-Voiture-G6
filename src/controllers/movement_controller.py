@@ -35,6 +35,9 @@ class MovementController:
     def turn_left(self, angle: int) -> None:
         self.__direction.turn_left(angle)
 
+    def turn_right(self, angle: int) -> None:
+        self.__direction.turn_right(angle)
+
     def sharp_left(self) -> None:
         """
         Tourne à gauche fort

@@ -1,10 +1,18 @@
-import time as t, RPi.GPIO as g
+import RPi.GPIO as g
 from .pwm_driver import PWM
 
 
 class Motor:
     """
     Représente la force motrice : les moteurs DC arrières
+    moteur gauche :
+    A : 17 (out)
+    B : 18 (out)
+    channel : 4
+    moteur droit :
+    A : 27 (out)
+    B : 22 (out)
+    channel : 5
     """
     def __init__(self,
             pin1_left_motor,
