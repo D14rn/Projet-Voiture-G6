@@ -2,6 +2,7 @@ from src.sensors import ColorSensor, DistanceSensor, LightSensor
 from src.motors import Motor, Direction
 from src.controllers import DistanceController, MovementController, StateController
 from src import Car
+from src.lib import exit_handler
 
 # Instantiate the distance sensors
 front_sensor = DistanceSensor("front sensor", 6, 5)

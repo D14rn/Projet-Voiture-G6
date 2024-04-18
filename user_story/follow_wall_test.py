@@ -1,8 +1,8 @@
-import time as t
-
 from src.sensors import ColorSensor, DistanceSensor, LightSensor
 from src.motors import Motor, Direction
 from src.controllers import DistanceController, MovementController, StateController
+from src import Car
+from src.lib import exit_handler
 
 # Instantiate the distance sensors
 front_sensor = DistanceSensor("front sensor", 6, 5)
@@ -18,18 +18,10 @@ movement_controller = MovementController(direction, motor, 50)
 # Instantiate the state sensors
 color_sensor = ColorSensor("color sensor")
 light_sensor = LightSensor("light sensor", 20)
-state_controller = StateController(light_sensor, color_sensor, lap_count=3)
+state_controller = StateController(color_sensor, light_sensor, lap_count=3)
 
-
-def auto_start() -> None:
-    state_controller.start()
-    state_controller.should_start_race()
-    movement_controller.stay_center()
-    movement_controller.speed = 50
-    t.sleep(3)
-    movement_controller.reset()
-    state_controller.stop()
+voiture = Car(movement_controller, distance_controller, state_controller)
 
 
 if __name__ == '__main__':
-    auto_start()
+    voiture.follow_right_wall(6)
