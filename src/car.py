@@ -4,7 +4,6 @@
 
 https://www.youtube.com/watch?v=D9-voINFkCg
 """
-from pynput import keyboard
 import time as t
 from src.controllers import MovementController, DistanceController, StateController
 
