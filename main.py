@@ -15,9 +15,9 @@ direction = Direction()
 movement_controller = MovementController(direction, motor, 50)
 
 # Instantiate the state sensors
-colorSensor = ColorSensor("color sensor")
-lightSensor = LightSensor("light sensor", 20)
-state_controller = StateController(colorSensor, lightSensor, lap_count=3)
+color_sensor = ColorSensor("color sensor")
+light_sensor = LightSensor("light sensor", 20)
+state_controller = StateController(color_sensor, light_sensor, lap_count=3)
 
 voiture = Car(movement_controller, distance_controller, state_controller)
 
@@ -26,13 +26,11 @@ menu = """
 |----| Welcome to the car controller |-----|
 |------------------------------------------|
 |---------------[ menu ]-------------------|
-|--&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&--|
-|----- 1. Follow right wall ---------------|
-|----- 2. Follow left wall ----------------|
-|----- 3. Control mode --------------------|
-|----- 4. Avoid object --------------------|
-|----- 5. Get light sensor value ----------|
-|----- 6. Auto mode -----------------------|
+|--------- 1. Follow right wall -----------|
+|--------- 2. Follow left wall ------------|
+|--------- 3. Control mode ----------------|
+|--------- 4. Avoid object ----------------|
+|--------- 5. Auto mode -------------------|
 |------------------------------------------|
 |--------| Press enter to exit |-----------|
 |------------------------------------------|
@@ -63,6 +61,4 @@ if __name__ == '__main__':
         case "4":
             voiture.avoid_object()
         case "5":
-            lightSensor.get_value()
-        case "6":
             voiture.autonomous_mode()

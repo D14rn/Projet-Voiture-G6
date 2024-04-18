@@ -1,3 +1,4 @@
+import time as t
 
 
 class StateController:
@@ -7,6 +8,8 @@ class StateController:
     def __init__(self, light, color, lap_count):
         self.__light = light
         self.__color = color
+        self.__last_update = 0
+        self.__wait = 2
         self.__lap_count = lap_count
 
     @property
@@ -31,8 +34,8 @@ class StateController:
         """
         Vérifie si la voiture doit continuer la course : si le nombre de tour n'est pas atteind
         """
-        if self.__light.value:
-            print('counting lap')
+        if self.__light.value and (t.time() - self.__last_update) > self.__wait:
+            self.__last_update = t.time()
             self.lap_count -= 1
 
         if self.lap_count > -1:
