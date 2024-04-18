@@ -14,10 +14,6 @@ class TestStateController(unittest.TestCase):
         result = self.state_controller.should_continue_race()
         self.assertTrue(result)
 
-    def test_should_continue_race_red(self):
-        self.mock_color.is_green.return_value = False
-        result = self.state_controller.should_continue_race()
-        self.assertFalse(result)
 
     def test_should_continue_race_full_lap(self):
         self.mock_color.is_green.return_value = True

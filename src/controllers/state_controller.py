@@ -24,14 +24,14 @@ class StateController:
         """
         Vérifie si la voiture doit démarrer la course : si le feux est vert
         """
-        if self.__color.is_green():
-            return True
+        while not self.__color.is_green():
+            pass
 
     def should_continue_race(self):
         """
         Vérifie si la voiture doit continuer la course : si le nombre de tour n'est pas atteind
         """
-        if self.__light.value == 1:
+        if self.__light.value:
             self.lap_count -= 1
 
         if self.lap_count > -1:
