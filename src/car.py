@@ -111,17 +111,18 @@ class Car():
         self.samir.go_forward()
         start_time = t.time()
         while (t.time() - start_time) < duration:
-            if self.vivek.front_distance < 15:
-                self.samir.sharp_right()
-            if self.vivek.left_distance < 15:
-                a = True
-                self.follow_left_wall(a)
-            elif self.vivek.left_distance > 30:
-                pass
-            else:
-                a = False
+            if self.vivek.front_distance < 20:
                 self.samir.sharp_left()
-        self.samir.stop()
+                t.sleep(0.3)
+                self.samir.stay_center()
+                t.sleep(2)
+                self.samir.sharp_right()
+                t.sleep(0.3)
+                self.samir.stay_center()
+                t.sleep(2)
+                self.samir.sharp_left()
+                t.sleep(0.2)
+        self.samir.reset()
         self.vivek.stop()
 
     def autonomous_mode(self) -> None:
