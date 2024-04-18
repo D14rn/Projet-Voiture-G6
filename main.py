@@ -20,6 +20,9 @@ voiture = Car(movement_controller, distance_controller, state_controller)
 
 menu = """
 1. Follow right wall
+2. Follow left wall
+3. Avoid object
+4. Get light sensor value
 """
 while True:
     print(menu)
@@ -30,6 +33,8 @@ while True:
         voiture.follow_left_wall(True)
     if choice == "3":
         voiture.avoid_object()
+    if choice == "4":
+        lightSensor.get_value()
     else:
         break
 
