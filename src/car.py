@@ -127,7 +127,7 @@ class Car():
         self.vivek.stop()
 
     def racing_strategy(self) -> None:
-        
+        pass
 
     def back_it_up(self) -> None:
         """
