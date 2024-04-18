@@ -38,12 +38,23 @@ menu = """
 
 print(menu)
 choice = input("Enter your choice: ")
-duration = int(input("Enter the duration of test: "))
 if choice == "1":
-    voiture.follow_right_wall(duration)
+    voiture.follow_right_wall(True)
 if choice == "2":
-    voiture.follow_left_wall(duration)
+    voiture.follow_left_wall(True)
 if choice == "3":
-    voiture.avoid_object()
+    print(""" ________________________
+             |                        |
+             |        Controls        |
+             |------------------------|
+             |  z: go forward         |
+             |  s: go backward        |
+             |  q: turn left          |
+             |  d: turn right         |
+             |________________________|
+            """)
+    voiture.controlled_mode()
 if choice == "4":
+    voiture.avoid_object()
+if choice == "5":
     lightSensor.get_value()
