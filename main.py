@@ -18,11 +18,19 @@ state_controller = StateController(colorSensor, lightSensor,2)
 
 voiture = Car(movement_controller, distance_controller, state_controller)
 
-menu = """
-1. Follow right wall
-2. Follow left wall
-3. Avoid object
-4. Get light sensor value
+menu = """ 
+|------------------------------------------|
+|----| Welcome to the car controller |-----|
+|------------------------------------------|
+|---------------[ menu ]-------------------|
+|--&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&--|
+|----- 1. Follow right wall ---------------|
+|----- 2. Follow left wall ----------------|
+|----- 3. Avoid object --------------------|
+|----- 4. Get light sensor value ----------|
+|------------------------------------------|
+|--------| Press enter to exit |-----------|
+|------------------------------------------|
 """
 while True:
     print(menu)
