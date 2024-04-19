@@ -22,84 +22,52 @@ class Motor:
             channel_motor1,
             channel_motor2):
         g.setmode(g.BCM)
-        # left motor
-        self.__left_motor_A = pin1_left_motor
-        self.__left_motor_B = pin2_left_motor
-        self.__left_motor_driver = channel_motor1
-        g.setup(self.__left_motor_A, g.OUT)
-        g.setup(self.__left_motor_B, g.OUT)
-        # right motor
-        self.__right_motor_A = pin1_right_motor
-        self.__right_motor_B = pin2_right_motor
-        self.__right_motor_driver = channel_motor2
-        g.setup(self.__right_motor_A, g.OUT)
-        g.setup(self.__right_motor_B, g.OUT)
-        # PWM (speed control)
-        self.__pwm = PWM()
-        self.__pwm.frequency = 50
-        self.__min = 0 # min pwm (speed)
-        self.__max = 4095 # max pwm (speed)
 
-    @property
-    def pwm(self):
-        return self.__pwm
-    
-    @property
-    def min(self):
-        return self.__min
-    
-    @property
-    def max(self):
-        return self.__max
-    
-    @property
-    def left_motor_A(self):
-        return self.__left_motor_A
-    
-    @property
-    def left_motor_B(self):
-        return self.__left_motor_B
-    
-    @property
-    def left_motor_driver(self):
-        return self.__left_motor_driver
-    
-    @property
-    def right_motor_A(self):
-        return self.__right_motor_A
-    
-    @property
-    def right_motor_B(self):
-        return self.__right_motor_B
-    
-    @property
-    def right_motor_driver(self):
-        return self.__right_motor_driver
-    
+        # Left motor
+        self.left_motor_A = pin1_left_motor
+        self.left_motor_B = pin2_left_motor
+        self.left_motor_driver = channel_motor1
+        g.setup(self.left_motor_A, g.OUT)
+        g.setup(self.left_motor_B, g.OUT)
+
+        # Right motor
+        self.right_motor_A = pin1_right_motor
+        self.right_motor_B = pin2_right_motor
+        self.right_motor_driver = channel_motor2
+        g.setup(self.right_motor_A, g.OUT)
+        g.setup(self.right_motor_B, g.OUT)
+
+        # PWM (speed control)
+        self.pwm = PWM()
+        self.pwm.frequency = 50
+        self.min = 0 # min pwm (speed)
+        self.max = 4095 # max pwm (speed)
+
     def move(self, speed, backward=False):
         """
         Actionne les moteurs arrières pour faire avancer ou reculer la voiture à une vitesse donnée (en %)
         """
-        if speed <= 0:
-            self.__pwm.write(self.__left_motor_driver, self.__min, 0)
-            self.__pwm.write(self.__right_motor_driver, self.__min, 0)
+        if speed <= 0: # We stop the motors if negative value
+            self.pwm.write(self.left_motor_driver, self.min, 0)
+            self.pwm.write(self.right_motor_driver, self.min, 0)
+            return 0
         else:
-            speed = int(min(self.__max, (self.__max * speed / 100)))
+            speed = int(min(self.max, (self.max * speed / 100)))
 
         if not backward:
-            g.output(self.__left_motor_A, g.HIGH)
-            g.output(self.__left_motor_B, g.LOW)
-            g.output(self.__right_motor_A, g.HIGH)
-            g.output(self.__right_motor_B, g.LOW)
+            g.output(self.left_motor_A, g.HIGH)
+            g.output(self.left_motor_B, g.LOW)
+            g.output(self.right_motor_A, g.HIGH)
+            g.output(self.right_motor_B, g.LOW)
         else:
-            print("Going backward")
-            g.output(self.__left_motor_A, g.LOW)
-            g.output(self.__left_motor_B, g.HIGH)
-            g.output(self.__right_motor_A, g.LOW)
-            g.output(self.__right_motor_B, g.HIGH)
-        self.__pwm.write(self.__left_motor_driver, self.__min, speed)
-        self.__pwm.write(self.__right_motor_driver, self.__min, speed)
-        return speed #recuperation de l'actuel valeur de la vitesse qui est set.
+            g.output(self.left_motor_A, g.LOW)
+            g.output(self.left_motor_B, g.HIGH)
+            g.output(self.right_motor_A, g.LOW)
+            g.output(self.right_motor_B, g.HIGH)
+
+        self.pwm.write(self.left_motor_driver, self.min, speed)
+        self.pwm.write(self.right_motor_driver, self.min, speed)
+        return speed # Recuperation de la valeur envoyée aux moteurs
 
     def stop(self):
         """

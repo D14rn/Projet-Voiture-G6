@@ -1,14 +1,11 @@
 import unittest, time
-from src.lib import exit_handler
+from src.lib import *
 from src.sensors import DistanceSensor
 
 
 class DistanceSensorTest(unittest.TestCase):
     def setUp(self) -> None:
-        front_sensor = DistanceSensor("front sensor", 6, 5)
-        left_sensor = DistanceSensor("left sensor", 11, 9)
-        right_sensor = DistanceSensor("right sensor", 26, 19)
-        self.sensors = [front_sensor, left_sensor, right_sensor]
+        self.sensors = [*create_ds()]
 
     def tearDown(self):
        del self.sensors

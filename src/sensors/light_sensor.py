@@ -8,22 +8,18 @@ class LightSensor(Sensor):
 
     lumière: 20 (in)
     """
-    def __init__(self, name, pin):
-        super().__init__(name)
-        self.__pin = pin
+    def __init__(self, name: str, pin: int) -> None:
+        super().__init__(name, polling_interval=0.4) # 0.4 because thiccc line
+        self.pin = pin
         g.setmode(g.BCM)
         g.setup(pin, g.IN) # We only need to receive input
-
-    @property
-    def pin(self):
-        return self.__pin
 
     def get_value(self) -> bool:
         """
         Renvoie la valeur de lumière (0/False: RGB, 1/True: black)
         """
         try:
-            self._value = g.input(self.__pin)
+            self.value = g.input(self.pin)
             return self.value
         except Exception as e:
             logging.error(e)

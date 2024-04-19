@@ -6,40 +6,27 @@ class StateController:
     Permet de contrôler l'état de la voiture dans la course (continuer ou arrêter)
     """
     def __init__(self, light, color, lap_count):
-        self.__light = light
-        self.__color = color
-        self.__last_update = 0
-        self.__wait = 2
-        self.__lap_count = lap_count + 1
+        self.light = light
+        self.color = color
+        self.last_update = 0
+        self.wait = 2
+        self.lap_count = lap_count + 1
 
-    @property
-    def lap_count(self):
-        return self.__lap_count
-    
-    @lap_count.setter
-    def lap_count(self, value):
-        if isinstance(value, int) and value >= 0:
-            self.__lap_count = value
-        else:
-            raise ValueError("Le nombre de tours doit être un entier positif")
-        
-    def should_start_race(self):
+    def waiting_for_greenlight(self):
         """
         Vérifie si la voiture doit démarrer la course : si le feux est vert
         """
-        while not self.__color.is_green():
-            pass
+        while not self.color.is_green():
+            continue
+        self.color.deactivate()
 
     def should_continue_race(self):
         """
         Vérifie si la voiture doit continuer la course : si le nombre de tour n'est pas atteind
         """
-        if self.__light.value and (t.time() - self.__last_update) > self.__wait:
-            self.__last_update = t.time()
-            try:
-                self.lap_count -= 1
-            except ValueError:
-                self.lap_count = 0
+        if ((self.light.value == 1) and ((t.time() - self.last_update) > self.wait)):
+            self.last_update = t.time()
+            self.lap_count -= 1
             print(f"Tours restants: {self.lap_count}")
 
         if self.lap_count > 0:
@@ -51,13 +38,12 @@ class StateController:
         """
         Lance les threads des capteurs
         """
-        self.__light.activate()
-        self.__color.activate()
+        self.light.activate()
+        self.color.activate()
 
     def stop(self):
         """
         Arrête les threads des capteurs
         """
-        self.__light.deactivate()
-        self.__color.deactivate()
-
+        self.light.deactivate()
+        self.color.deactivate()

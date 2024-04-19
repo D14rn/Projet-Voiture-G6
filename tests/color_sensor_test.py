@@ -30,7 +30,7 @@ class ColorSensorTest(unittest.TestCase):
         values = [i for i in range(0,255)]
         print("--- Testing color sensor : get_value() method ---")
         for _ in range(10):
-            r, g, b = self.sensor.get_value()
+            r, g, b = self.sensor.value
             print(f"R: {r}, G: {g}, B: {b}")
             self.assertIn(r, values)
             self.assertIn(g, values)

@@ -24,7 +24,7 @@ state_controller = StateController(light_sensor, color_sensor, lap_count=3)
 
 def auto_start() -> None:
     state_controller.start()
-    state_controller.should_start_race()
+    state_controller.waiting_for_greenlight()
     movement_controller.stay_center()
     movement_controller.speed = 50
     t.sleep(3)
