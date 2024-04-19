@@ -30,7 +30,8 @@ class MovementController:
         self.__motor.move(self.__speed)
 
     def go_backward(self) -> None:
-        self.__motor.move(self.__speed, backward=True)
+        print("going backward")
+        self.__motor.move(-self.__speed, backward=True)
 
     def turn_left(self, angle: int) -> None:
         self.__direction.turn_left(angle)

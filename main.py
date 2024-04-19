@@ -18,7 +18,7 @@ movement_controller = MovementController(direction, motor, 50)
 # Instantiate the state sensors
 color_sensor = ColorSensor("color sensor")
 light_sensor = LightSensor("light sensor", 20)
-state_controller = StateController(color_sensor, light_sensor, lap_count=3)
+state_controller = StateController(light_sensor, color_sensor, lap_count=3)
 
 voiture = Car(movement_controller, distance_controller, state_controller)
 
