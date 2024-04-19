@@ -1,5 +1,7 @@
 # Projet voiture
 
+> Le fichier pwm_driver.py n'est pas de notre conception, c'est une bibliothèque utilisée pour le module PWM PCA9685 !
+
 ## Équipe
 
 Notre équipe :
