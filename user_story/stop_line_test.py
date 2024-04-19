@@ -28,6 +28,7 @@ def stop_line() -> None:
     movement_controller.speed = 50
     while state_controller.should_continue_race():
         pass
+    t.sleep(0.65)
     movement_controller.reset()
     state_controller.stop()
 
