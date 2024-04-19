@@ -10,7 +10,7 @@ class StateController:
         self.__color = color
         self.__last_update = 0
         self.__wait = 2
-        self.__lap_count = lap_count
+        self.__lap_count = lap_count + 1
 
     @property
     def lap_count(self):
@@ -38,7 +38,7 @@ class StateController:
             self.__last_update = t.time()
             self.lap_count -= 1
 
-        if self.lap_count > -1:
+        if self.lap_count > 0:
             return True
         else:
             return False
