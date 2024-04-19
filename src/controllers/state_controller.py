@@ -36,7 +36,11 @@ class StateController:
         """
         if self.__light.value and (t.time() - self.__last_update) > self.__wait:
             self.__last_update = t.time()
-            self.lap_count -= 1
+            try:
+                self.lap_count -= 1
+            except ValueError:
+                self.lap_count = 0
+            print(f"Tours restants: {self.lap_count}")
 
         if self.lap_count > 0:
             return True

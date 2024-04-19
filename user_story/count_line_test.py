@@ -19,17 +19,16 @@ movement_controller = MovementController(direction, motor, 50)
 # Instantiate the state sensors
 color_sensor = ColorSensor("color sensor")
 light_sensor = LightSensor("light sensor", 20)
-state_controller = StateController(light_sensor, color_sensor, lap_count=3)
 
 
 def count_line() -> None:
     lap = input("Indiquez le nombre de tours à effectuer: ")
-    state_controller.lap_count = int(lap)
+    state_controller = StateController(light_sensor, color_sensor, lap_count=int(lap))
     state_controller.start()
     movement_controller.stay_center()
     movement_controller.speed = 50
     while state_controller.should_continue_race():
-        print("Tours restants: "+state_controller.lap_count)
+        pass
     movement_controller.reset()
     state_controller.stop()
 
