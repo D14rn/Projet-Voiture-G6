@@ -39,6 +39,7 @@ class DistanceController:
         self.__front.activate()
         self.__left.activate()
         self.__right.activate()
+        print("capteurs distance lancés")
 
     def stop(self) -> None:
         """

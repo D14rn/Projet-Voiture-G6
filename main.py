@@ -1,9 +1,8 @@
-from src.controllers import DistanceController, MovementController, StateController
 from src import Car
 from src.lib import *
 
 
-voiture = Car(create_movement_controller(), create_distance_controller(), create_state_controller(), speed=30)
+voiture = Car(create_movement_controller(), create_distance_controller(), create_state_controller(lap_count=3), speed=30)
 
 menu = """ 
 |------------------------------------------|
@@ -15,6 +14,7 @@ menu = """
 |--------- 3. Control mode ----------------|
 |--------- 4. Avoid object ----------------|
 |--------- 5. Auto mode -------------------|
+|--------- 6. Racing mode -----------------|
 |------------------------------------------|
 |--------| Press enter to exit |-----------|
 |------------------------------------------|
@@ -34,3 +34,5 @@ if __name__ == '__main__':
             voiture.avoid_object()
         case "5":
             voiture.autonomous_mode()
+        case "6":
+            voiture.race_mode()

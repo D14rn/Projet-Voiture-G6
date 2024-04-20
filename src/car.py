@@ -24,15 +24,9 @@ class Car():
         self.vivek = distance_controller
         self.jarvis = state_controller
         self.speed = speed
-
-    def _follow_right_wall_simple(self, target_distance, margin, correction_angle):
-        distance = self.vivek.right_distance
-        if (distance < target_distance - margin):
-            self.samir.turn_left(correction_angle)
-        elif (distance > target_distance + margin):
-            self.samir.turn_right(correction_angle)
-        else:
-            self.samir.stay_center()
+        self.back_it_up_treshold = 12
+        self.min_front_dist = 6
+        self.current_wall = "right"
 
     def avoid_object(self, duration: int = 10) -> None:
         """
@@ -65,18 +59,37 @@ class Car():
         self.samir.reset()
         self.vivek.stop()
 
-    def autonomous_mode(self):
+    def emergency_mode(self):
+        self.race_mode(wait_for_green=False)
+    
+    def programmable_autonomous_mode(self, wait_for_green=True):
+        target_distance = int(input("Distance: "))
+        distance_margin = int(input("Margin: "))
+        correction_angle = int(input("Angle: "))
+        speed = int(input("Speed: "))
+        self.autonomous_mode(target_distance, distance_margin, correction_angle, speed, wait_for_green)
+
+    def race_mode(self):
+        target_distance = 20
+        distance_margin = 1
+        correction_angle = 20
+        speed = 30
+        self.autonomous_mode(target_distance, distance_margin, correction_angle, speed)
+        if self.vivek.left_distance > self.vivek.right_distance:
+            self.current_wall = "left"
+
+    def autonomous_mode(self, target_distance, distance_margin, correction_angle, speed, wait_for_green=True):
         """
         Déplacement autonome : la voiture se déplace toute seule à l'aide des capteurs
         """
+        self.samir.set_speed(speed)
         self.vivek.start()
         self.jarvis.start()
-        self.jarvis.waiting_for_greenlight()
-        distance_margin = 2
-        target_distance = 20
-        correction_angle = 10
+        self.samir.reset()
+        if wait_for_green == True:
+            self.jarvis.waiting_for_greenlight()
         while self.jarvis.should_continue_race():
-            self.racing_strategy(distance_margin, target_distance)
+            self.racing_strategy(distance_margin, target_distance, correction_angle)
         self.samir.reset()
         self.vivek.stop()
         self.jarvis.stop()
@@ -85,22 +98,72 @@ class Car():
                         distance_margin, 
                         target_distance, 
                         correction_angle,
-                        max_front_distance
                         ) -> None:
+        max_distance = target_distance * 1.75
+        stick_distance = target_distance * 1.25
+        if (not self.current_wall == "left") and ((self.vivek.left_distance < stick_distance) and (self.vivek.right_distance > max_distance)):
+            self.current_wall = "left"
+            print("changing to left")
+        elif (not self.current_wall == "right") and ((self.vivek.right_distance < stick_distance) and (self.vivek.left_distance > max_distance)):
+            self.current_wall = "right"
+            print("changing to right")
+        if self.current_wall == "right":
+            self.race_follow_right(target_distance, distance_margin, correction_angle)
+        else:
+            self.race_follow_left(target_distance, distance_margin, correction_angle)
+        self.samir.go_forward()
+    
+    def race_follow_right(self, target_distance, margin, angle):
         distance = self.vivek.right_distance
-        if (distance < target_distance - distance_margin):
-            self.samir.turn_left(correction_angle)
-        elif (distance > target_distance + distance_margin):
-            self.samir.turn_right(correction_angle)
+        if (self.vivek.front_distance < self.min_front_dist):
+            self.back_it_up()
+        if (distance < target_distance * 0.5):
+            self.samir.turn_left(40)
+        elif (distance < target_distance - margin):
+            self.samir.turn_left(angle)
+        elif (distance > target_distance * 1.5):
+            self.samir.turn_right(40)
+        elif (distance > target_distance + margin):
+            self.samir.turn_right(angle)
+        else:
+            self.samir.stay_center()
+    
+    def race_follow_left(self, target_distance, margin, angle):
+        distance = self.vivek.left_distance
+        if (self.vivek.front_distance < self.min_front_dist):
+            self.back_it_up()
+        if (distance < target_distance * 0.5):
+            self.samir.turn_right(40)
+        elif (distance < target_distance - margin):
+            self.samir.turn_right(angle)
+        elif (distance > target_distance * 1.5):
+            self.samir.turn_left(40)
+        elif (distance > target_distance + margin):
+            self.samir.turn_left(angle)
         else:
             self.samir.stay_center()
 
     def back_it_up(self) -> None:
         """
-        Fais reculer la voiture
+        Essaie de remettre la voiture
         """
-        self.samir.turn_left(45)
-        self.samir.set_speed
+        turn = ""
+        while self.vivek.front_distance < self.back_it_up_treshold:
+            if self.vivek.left_distance > self.vivek.right_distance:
+                self.samir.medium_right()
+                turn = "right"
+            else:
+                self.samir.medium_left()
+                turn = "left"
+            self.samir.go_backward()
+        t.sleep(0.3)
+        if turn == "right":
+           self.samir.sharp_left()
+        else:
+            self.samir.sharp_right()
+        self.samir.go_forward()
+        t.sleep(0.6)
+        self.samir.stay_center()
 
     def controlled_mode(self):
         """
